@@ -1,0 +1,11 @@
+name: "conftest"
+on: [push]
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/conftest
+              with:
+                  test-file: 'test/unit/droplet.rego'
+                  terraform-file: 'droplet.tf'

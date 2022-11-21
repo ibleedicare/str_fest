@@ -1,0 +1,17 @@
+# action.yml
+name: 'conftest'
+description: 'Test terraform tf file'
+inputs:
+    test-file:
+        description: 'test file name'
+        required: true
+        default: 'test.rego'
+    terraform-file:
+        description: 'terraform file'
+        required: true
+        default: 'main.tf'
+runs:
+    using: 'docker'
+    image: 'Dockerfile'
+    args:
+        - ${{ inputs.test-file }} ${{ inputs.terraform-file }}
