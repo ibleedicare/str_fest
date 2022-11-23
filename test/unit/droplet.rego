@@ -79,8 +79,8 @@ deny[msg] {
 }
 
 deny[msg] {
-    not contains(input.resource.digitalocean_ssh_key.ssh_default.public_key, "var.ssh_key_path")
-    msg = "Droplet ssh key resource should have public_key field should have var.ssh_key_path"
+    not contains(input.resource.digitalocean_ssh_key.ssh_default.public_key, "var.ssh_key")
+    msg = "Droplet ssh key resource should have public_key field should have var.ssh_key"
 }
 
 # Define provider digitalocean
@@ -102,21 +102,4 @@ deny[msg] {
 deny[msg] {
     not contains(input.provider.digitalocean.token, "var.do_token")
     msg = "Digitalocean token should be equal to `var.do_token`"
-}
-
-# Define variable
-
-deny[msg] {
-    not input.variable
-    msg = "Variable block not defined"
-}
-
-deny[msg] {
-    not input.variable.do_token
-    msg = "do_token variable not defined"
-}
-
-deny[msg] {
-    not input.variable.ssh_key_path
-    msg = "ssh_key_path variable not defined"
 }

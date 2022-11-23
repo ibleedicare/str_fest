@@ -1,2 +1,4 @@
 var.tfvars
 .terraform*
+.kitchen/
+.kitchen.local.yml
