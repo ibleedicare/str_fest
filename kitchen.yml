@@ -1,6 +1,8 @@
 ---
 driver:
   name: terraform
+  variable_files:
+    - var.tfvars
 
 provisioner:
   name: terraform
@@ -8,7 +10,24 @@ provisioner:
 platforms:
   - name: ubuntu-20.04
 
+transport:
+  name: ssh
+  username: root
+verifier:
+  name: terraform
+  systems:
+    - name: default
+      controls:
+        - obs 
+      backend: ssh
+      user: root
+      key_files:
+        -  /home/jphetphoumy/.ssh/id_ed25519
+      hosts_output: public_ip
 suites:
   - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
     run_list:
     attributes:
