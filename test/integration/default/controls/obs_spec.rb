@@ -1,5 +1,8 @@
 control 'obs' do
-	describe apt('https://ppa.launchpadcontent.net/obsproject/obs-studio/ubuntu/') do
+	describe package('python3') do
+		it { should be_installed }
+	end
+	describe apt('ppa:obsproject/obs-studio') do
 		it { should exist }
 	end
 	describe package('ffmpeg') do

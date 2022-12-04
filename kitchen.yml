@@ -19,10 +19,11 @@ verifier:
     - name: default
       controls:
         - obs 
+        - xrdp
       backend: ssh
       user: root
       key_files:
-        -  /home/jphetphoumy/.ssh/id_ed25519
+        - /home/jphetphoumy/.ssh/id_ed25519 
       hosts_output: public_ip
 suites:
   - name: default

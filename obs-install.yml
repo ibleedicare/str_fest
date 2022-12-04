@@ -1,0 +1,35 @@
+- become: yes
+  hosts: all
+  name: obs-install
+  tasks:
+      - name: Install ffmpeg
+        apt:
+            name: ffmpeg
+            state: latest
+      - name: Install obs-studio
+        apt:
+            name: obs-studio 
+            state: latest
+      - name: Have repository
+        ansible.builtin.apt_repository:
+            repo: ppa:obsproject/obs-studio
+            state: present
+      - name: Install xrdp
+        apt:
+            name: xrdp 
+            state: latest
+      - name: Install xfce4
+        apt:
+            name: xfce4
+            state: latest
+        apt:
+            name: xrdp 
+            state: latest
+      - name: Add the user bleed and add it to sudo
+        user:
+            name: bleed
+            group: sudo
+            uid: 1001
+            createhome: yes
+            home: /home/bleed
+

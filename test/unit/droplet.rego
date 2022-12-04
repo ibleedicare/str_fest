@@ -6,6 +6,11 @@ deny[msg] {
 }
 
 deny[msg] {
+    not input.resource.digitalocean_droplet.obs.provisioner
+    msg = "No provisioner local-exec"
+}
+
+deny[msg] {
     not input.resource.digitalocean_droplet.obs.image
     msg = "Droplet should have an image defined"
 }
