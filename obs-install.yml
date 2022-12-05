@@ -2,6 +2,13 @@
   hosts: all
   name: obs-install
   tasks:
+      - name: Add obs studio repository
+        ansible.builtin.apt_repository:
+            repo: ppa:obsproject/obs-studio
+            state: present
+      - name: Apt get update
+        apt:
+            update_cache: yes
       - name: Install ffmpeg
         apt:
             name: ffmpeg
@@ -10,10 +17,6 @@
         apt:
             name: obs-studio 
             state: latest
-      - name: Have repository
-        ansible.builtin.apt_repository:
-            repo: ppa:obsproject/obs-studio
-            state: present
       - name: Install xrdp
         apt:
             name: xrdp 
@@ -22,9 +25,15 @@
         apt:
             name: xfce4
             state: latest
+      - name: Install xfce4-goodies
         apt:
-            name: xrdp 
+            name: xfce4-goodies
             state: latest
+      - name: Set xsession
+        lineinfile:
+            path: /home/bleed/.xsession
+            line: xfce4-session
+            create: yes
       - name: Add the user bleed and add it to sudo
         user:
             name: bleed

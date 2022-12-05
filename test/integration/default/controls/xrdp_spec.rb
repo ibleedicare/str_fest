@@ -7,6 +7,13 @@ control 'xrdp' do
     it { should be_installed }
   end
 
+  describe package('xfce4-goodies') do
+    it { should be_installed }
+  end
+
+  describe file('/home/bleed/.xsession') do
+    its('content') { should match 'xfce4-session' }
+  end
   describe systemd_service('xrdp') do
     it { should be_enabled }
   end
