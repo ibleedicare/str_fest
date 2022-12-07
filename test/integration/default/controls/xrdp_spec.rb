@@ -12,8 +12,13 @@ control 'xrdp' do
   end
 
   describe file('/home/bleed/.xsession') do
-    its('content') { should match 'xfce4-session' }
+    its('content') { should match 'startxfce4' }
   end
+
+  describe file('/home/bleed/.config/obs-studio/basic/scenes/STR_Fest.json') do
+    its('link_path') { should eq '/home/bleed/.config/obs-studio/basic/scenes/STR_Fest.json' }
+  end
+
   describe systemd_service('xrdp') do
     it { should be_enabled }
   end

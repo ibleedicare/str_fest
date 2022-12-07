@@ -11,7 +11,7 @@ resource "digitalocean_droplet" "obs" {
 
     provisioner "remote-exec" {
 
-        inline = ["sudo apt update", "sudo apt install python3 -y", "echo Done!"]
+        inline = ["echo Done!"]
         connection {
             host = self.ipv4_address
             type = "ssh"

@@ -1,7 +1,13 @@
 - become: yes
   hosts: all
   name: obs-install
+  vars_files:
+    - external_vars.yml
   tasks:
+      - name: Wait for /var/lib/dpkg/lock-frontend to be released 
+        shell: while lsof /var/lib/dpkg/lock-frontend ; do sleep 10; done;
+      - name: Wait for /var/lib/apt/lists/lock to be released 
+        shell: while lsof /var/lib/apt/lists/lock ; do sleep 10; done;
       - name: Add obs studio repository
         ansible.builtin.apt_repository:
             repo: ppa:obsproject/obs-studio
@@ -29,11 +35,6 @@
         apt:
             name: xfce4-goodies
             state: latest
-      - name: Set xsession
-        lineinfile:
-            path: /home/bleed/.xsession
-            line: xfce4-session
-            create: yes
       - name: Add the user bleed and add it to sudo
         user:
             name: bleed
@@ -41,4 +42,16 @@
             uid: 1001
             createhome: yes
             home: /home/bleed
-
+            password: "{{ password | password_hash('sha512') }}"
+      - name: Set xsession
+        lineinfile:
+            path: /home/bleed/.xsession
+            line: startxfce4
+            owner: bleed
+            create: yes
+      # - name: Install obs scene
+      #   copy:
+      #     src: STR_Fest.json
+      #     dest: /home/bleed/.config/obs-studio/basic/scenes
+      #     owner: bleed
+      #     group: sudo
